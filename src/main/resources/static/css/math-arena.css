@@ -1,0 +1,161 @@
+:root {
+  --game-bg: rgba(0, 0, 0, 0.4);
+}
+
+.game-area {
+  background: var(--card-bg);
+  padding: 15px 25px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 95%;
+  max-width: 850px;
+  margin: 5px auto;
+  animation: fadeIn 0.8s ease-out;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.player-stats {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.player-stats h3 {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 5px;
+}
+
+.player-score {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.problem-board {
+  background: var(--input-bg);
+  padding: 30px 15px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 20px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#game-problem {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.buzzer-area {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.buzzer-btn {
+  flex: 1;
+  max-width: 300px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.buzzer-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.option-btn {
+  padding: 10px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-color);
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-btn:hover {
+  border-color: var(--primary-color);
+  background: var(--input-bg);
+  transform: scale(1.02);
+}
+
+.status-msg {
+  font-size: 1.1rem;
+  margin-top: 10px;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* Theme-Specific Container Overlays */
+.theme-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.math-bg {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text y="20" font-family="Outfit" font-size="20" fill="%23ff2a55" opacity="0.3">∑</text><text x="50" y="50" font-family="Outfit" font-size="20" fill="%23ffb703" opacity="0.3">π</text><text x="20" y="80" font-family="Outfit" font-size="20" fill="%23ff2a55" opacity="0.3">∫</text><text x="80" y="20" font-family="Outfit" font-size="15" fill="%23ffb703" opacity="0.3">√</text></svg>');
+}
+
+.code-bg {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><text y="40" font-family="Outfit" font-size="14" fill="%2300ff88" opacity="0.2">{ }</text><text x="60" y="80" font-family="Outfit" font-size="14" fill="%2300ff88" opacity="0.2">&lt;/&gt;</text><text x="10" y="100" font-family="Outfit" font-size="14" fill="%2300ff88" opacity="0.2">[]</text></svg>');
+}
+
+.react-bg {
+    background: radial-gradient(circle, rgba(255, 42, 85, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* Floating Elements Container */
+.floating-decor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .game-area { padding: 20px; }
+  .player-score { font-size: 2.5rem; }
+  #game-problem { font-size: 2.5rem; }
+  .buzzer-btn { padding: 15px; font-size: 1rem; }
+  .options-grid { grid-template-columns: 1fr; }
+  .option-btn { padding: 15px; font-size: 1.2rem; }
+}

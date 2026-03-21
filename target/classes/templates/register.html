@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Logic Clash</title>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <button id="theme-toggle" class="theme-toggle">☀️</button>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>Logic<span>Clash</span></h1>
+            <h2>New Combatant</h2>
+            <p>Establish your credential for the arena</p>
+            <div th:if="${error}" class="error-msg" th:text="${error}"></div>
+            <form th:action="@{/register}" method="post">
+                <div class="form-group">
+                    <label>Unique Player Tag</label>
+                    <input type="text" name="username" placeholder="e.g. MasterCoder" required autofocus minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>Comms Channel (Email)</label>
+                    <input type="email" name="email" placeholder="e.g. ace@clash.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Secret Access Key</label>
+                    <input type="password" name="password" placeholder="••••••••" required minlength="6">
+                </div>
+                <button type="submit" class="btn">Confirm Registration</button>
+            </form>
+            <div class="link-text">
+                Already registered? <a th:href="@{/login}">Login & Enter</a>
+            </div>
+        </div>
+    </div>
+    <style>
+        .auth-card h1 {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .auth-card h1 span { color: var(--text-color); }
+    </style>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

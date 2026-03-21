@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Logic Clash</title>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="dashboard-nav">
+        <h1>Logic<span>Clash</span></h1>
+        <div class="nav-actions">
+            <span style="font-weight: 600;">Combatant: <span style="color: var(--primary-color);" th:text="${username}">Player</span></span>
+            <button id="theme-toggle" class="theme-toggle">☀️</button>
+            <a th:href="@{/logout}" class="btn" style="padding: 10px 15px; text-decoration: none;">Quit Arena</a>
+        </div>
+    </nav>
+    <div class="dashboard-content">
+        <header class="hero-section">
+            <h2 style="color: var(--text-color);">The Command Center</h2>
+            <p>Ready your mind for multidisciplinary logic combat.</p>
+        </header>
+        <div class="games-grid">
+            <article class="game-card">
+                <div class="game-icon">🧮</div>
+                <h3>Math Arena</h3>
+                <div class="game-tags"><span class="tag">Math</span><span class="tag">Real-time</span></div>
+                <p>Calculations, squares, and cubes. High-speed arithmetic duel.</p>
+                <a th:href="@{/math-arena}" class="play-btn">Engage Duel</a>
+            </article>
+            <article class="game-card">
+                <div class="game-icon">🔐</div>
+                <h3>CodeBreaker</h3>
+                <div class="game-tags"><span class="tag">Logic</span><span class="tag">Decoding</span></div>
+                <p>Hidden patterns and digit sums. Systematic decryption battle.</p>
+                <a th:href="@{/code-breaker}" class="play-btn">Engage Duel</a>
+            </article>
+            <article class="game-card">
+                <div class="game-icon">⚡</div>
+                <h3>React & Predict</h3>
+                <div class="game-tags"><span class="tag">Reflex</span><span class="tag">Foresee</span></div>
+                <p>Respond to stimuli and predict state transitions instantly.</p>
+                <a th:href="@{/react-predict}" class="play-btn">Engage Duel</a>
+            </article>
+            <article class="game-card">
+                <div class="game-icon">🧩</div>
+                <h3>Memory Grid</h3>
+                <div class="game-tags"><span class="tag">Recall</span><span class="tag">Visual</span></div>
+                <p>State sync and recall. Memorize complex board data.</p>
+                <a th:href="@{/memory-grid}" class="play-btn">Engage Duel</a>
+            </article>
+            <article class="game-card">
+                <div class="game-icon">⚖️</div>
+                <h3>Equation Builder</h3>
+                <div class="game-tags"><span class="tag">Structure</span><span class="tag">AST Parse</span></div>
+                <p>Assemble missing parts of equations to hit targets.</p>
+                <a th:href="@{/equation-builder}" class="play-btn">Engage Duel</a>
+            </article>
+            <article class="game-card">
+                <div class="game-icon">🕵️</div>
+                <h3>Bluff & Detect</h3>
+                <div class="game-tags"><span class="tag">Logic</span><span class="tag">Binary</span></div>
+                <p>Mathematical truth or logical deception. Choose wisely.</p>
+                <a th:href="@{/bluff-detect}" class="play-btn">Engage Duel</a>
+            </article>
+            <article class="game-card">
+                <div class="game-icon">🔢</div>
+                <h3>Graph Domain</h3>
+                <div class="game-tags"><span class="tag">Nodes</span><span class="tag">Topology</span></div>
+                <p>Complete graphs and star topologies. Topographical logic.</p>
+                <a th:href="@{/graph-domain}" class="play-btn">Engage Duel</a>
+            </article>
+            <article class="game-card">
+                <div class="game-icon">🤖</div>
+                <h3>AI Logic Duel</h3>
+                <div class="game-tags"><span class="tag">Trees</span><span class="tag">Minimax</span></div>
+                <p>Analyze search trees and minimax state transition counts.</p>
+                <a th:href="@{/ai-logic}" class="play-btn">Engage Duel</a>
+            </article>
+        </div>
+    </div>
+    <script th:src="@{/js/script.js}"></script>
+    <style>
+        .dashboard-nav h1 span { color: var(--text-color); }
+        .game-card h3 { color: var(--primary-color); }
+    </style>
+</body>
+</html>

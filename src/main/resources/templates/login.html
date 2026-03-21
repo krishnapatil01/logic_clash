@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Logic Clash</title>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <button id="theme-toggle" class="theme-toggle">☀️</button>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>Logic<span>Clash</span></h1>
+            <h2>Welcome Back</h2>
+            <p>Enter your credentials to access the Dashboard</p>
+            <div th:if="${param.error}" class="error-msg">
+                Invalid Player Tag or Password. Access Denied.
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label>Player Tag</label>
+                    <input type="text" name="username" placeholder="e.g. NeoMatrix" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label>Access Key</label>
+                    <input type="password" name="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn">Login & Enter</button>
+            </form>
+            <div class="link-text">
+                New combatant? <a th:href="@{/register}">Register now</a>
+            </div>
+        </div>
+    </div>
+    <style>
+        .auth-card h1 {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .auth-card h1 span { color: var(--text-color); }
+    </style>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

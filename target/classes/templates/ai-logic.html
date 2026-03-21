@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Logic | Logic Clash</title>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}"><link rel="stylesheet" th:href="@{/css/math-arena.css}">
+</head>
+<body>
+    <div class="theme-overlay code-bg"></div>
+    <nav class="dashboard-nav">
+        <h1>Local<span>Duel</span></h1>
+        <div class="nav-actions">
+            <span style="font-weight: 600;">Combatant: <span style="color: var(--primary-color);" th:text="${username}">Player</span></span>
+            <button id="theme-toggle" class="theme-toggle">☀️</button>
+            <a th:href="@{/dashboard}" class="btn" style="padding: 10px 15px; text-decoration: none;">Flee</a>
+        </div>
+    </nav>
+    <div class="dashboard-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 85vh;">
+        <div id="pre-game-area" class="auth-card">
+            <h2>AI Logic Duel</h2>
+            <p>Minimax search trees and state transition analysis. Synthetic Intelligence Duel.</p>
+            <div style="display: flex; justify-content: space-around; margin-bottom: 25px;">
+                <div style="text-align: center;"><span style="display: block; font-size: 0.8rem; margin-bottom: 5px;">P1</span><div class="btn" style="padding: 10px 20px;">KEY: Q</div></div>
+                <div style="text-align: center;"><span style="display: block; font-size: 0.8rem; margin-bottom: 5px;">P2</span><div class="btn" style="padding: 10px 20px; background: #4a90e2;">KEY: P</div></div>
+            </div>
+            <button class="btn btn-large" onclick="startGame()" style="width: 100%;">Commence Duel</button>
+        </div>
+        <div id="game-area" class="game-area" style="display: none;">
+            <div class="game-header">
+                <div class="player-stats" id="p1-panel"><h3>PLAYER 1 (Q)</h3><div id="p1-score" class="player-score">0</div></div>
+                <div style="text-align: center; margin: 0 15px;">
+                    <div style="font-size: 2rem; font-weight: 800; opacity: 0.3;">VS</div>
+                    <div id="round-counter" style="font-size: 1rem; color: var(--accent); font-weight: 800;">Round: 1 / 10</div>
+                </div>
+                <div class="player-stats" id="p2-panel"><h3>PLAYER 2 (P)</h3><div id="p2-score" class="player-score">0</div></div>
+            </div>
+            <div class="problem-board" id="problem-board">
+                <p style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;">SYNTHETIC SEARCH METRIC</p>
+                <h1 id="game-problem" style="font-size: 2.2rem !important;">MINIMAX...</h1>
+            </div>
+            <div id="buzzer-area" class="buzzer-area">
+                <button class="buzzer-btn" style="background: var(--primary-color);" onclick="localBuzz(1)">P1 BUZZ</button>
+                <button class="buzzer-btn" style="background: #4a90e2;" onclick="localBuzz(2)">P2 BUZZ</button>
+            </div>
+            <div id="options-area" class="options-grid" style="display: none;"></div>
+            <div id="status-msg" class="status-msg">ANALYZE THE MODEL!</div>
+        </div>
+    </div>
+    <script>window.gameType = 'ai';</script>
+    <script th:src="@{/js/script.js}"></script><script th:src="@{/js/universal-game.js}"></script>
+    <style>nav h1 span { color: var(--text-color); }</style>
+</body>
+</html>
