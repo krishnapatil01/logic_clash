@@ -1,20 +1,21 @@
 package com.competitive.games.controller;
 
 import com.competitive.games.model.User;
-import com.competitive.games.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    // 🔥 Temporary in-memory storage
+    private Map<String, User> usersByUsername = new HashMap<>();
+    private Map<String, User> usersByEmail = new HashMap<>();
 
     @GetMapping("/")
     public String index() {
@@ -31,43 +32,41 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam("username") String username, 
-                               @RequestParam("email") String email, 
-                               @RequestParam("password") String password, 
+    public String registerUser(@RequestParam("username") String username,
+                               @RequestParam("email") String email,
+                               @RequestParam("password") String password,
                                Model model, HttpSession session) {
-        try {
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                model.addAttribute("error", "All fields are required");
-                return "register";
-            }
 
-            if (userRepository.findByEmail(email).isPresent()) {
-                model.addAttribute("error", "Email already exists");
-                return "register";
-            }
-            if (userRepository.findByUsername(username).isPresent()) {
-                model.addAttribute("error", "Username already exists");
-                return "register";
-            }
-
-            User newUser = new User();
-            newUser.setUsername(username);
-            newUser.setEmail(email);
-            newUser.setPassword(password);
-
-            User savedUser = userRepository.save(newUser);
-            session.setAttribute("userId", savedUser.getId());
-            session.setAttribute("username", savedUser.getUsername());
-            
-            return "redirect:/dashboard";
-        } catch (Exception e) {
-            try (java.io.PrintWriter pw = new java.io.PrintWriter(new java.io.FileWriter("c:/Users/acer/OneDrive/Desktop/game/debug.log", true))) {
-                pw.println("ERROR at Register: " + new java.util.Date() + " - " + e.toString());
-                e.printStackTrace(pw);
-            } catch (java.io.IOException ioe) {}
-            model.addAttribute("error", "Server Error: " + e.getMessage());
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            model.addAttribute("error", "All fields are required");
             return "register";
         }
+
+        if (usersByEmail.containsKey(email)) {
+            model.addAttribute("error", "Email already exists");
+            return "register";
+        }
+
+        if (usersByUsername.containsKey(username)) {
+            model.addAttribute("error", "Username already exists");
+            return "register";
+        }
+
+        // Create user
+        User newUser = new User();
+        newUser.setId((long) (usersByUsername.size() + 1)); // fake ID
+        newUser.setUsername(username);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+
+        // Save in memory
+        usersByUsername.put(username, newUser);
+        usersByEmail.put(email, newUser);
+
+        session.setAttribute("userId", newUser.getId());
+        session.setAttribute("username", newUser.getUsername());
+
+        return "redirect:/dashboard";
     }
 
     @GetMapping("/login")
@@ -79,13 +78,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, Model model,
-            HttpSession session) {
-        Optional<User> userOpt = userRepository.findByUsername(username);
+    public String loginUser(@RequestParam("username") String username,
+                            @RequestParam("password") String password,
+                            Model model,
+                            HttpSession session) {
 
-        if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
-            session.setAttribute("userId", userOpt.get().getId());
-            session.setAttribute("username", userOpt.get().getUsername());
+        User user = usersByUsername.get(username);
+
+        if (user != null && user.getPassword().equals(password)) {
+            session.setAttribute("userId", user.getId());
+            session.setAttribute("username", user.getUsername());
             return "redirect:/dashboard";
         }
 
